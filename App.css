@@ -1,135 +1,38 @@
-/* Overall layout */
 .App {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
   min-height: 100vh;
-}
-
-/* Header with logo and title */
-.header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-bottom: 2rem;
-}
-
-.logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ddd;
-}
-
-.header h1 {
-  font-size: 1.9rem;
-  margin: 0;
-  color: #333;
-}
-
-/* Task form */
-.task-form {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.task-form input {
-  flex: 1;
-  min-width: 200px;
-  padding: 0.6rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.task-form button {
-  padding: 0.6rem 1.2rem;
-  background-color: #005eff;
+  font-size: calc(10px + 2vmin);
   color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background 0.2s ease-in-out;
 }
 
-.task-form button:hover {
-  background-color: #0041c9;
+.App-link {
+  color: #61dafb;
 }
 
-/* Task list */
-.task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Task item */
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 0.6rem;
-  transition: background-color 0.2s ease;
-}
-
-.task-item:hover {
-  background-color: #f2f2f2;
-}
-
-.task-item span {
-  flex: 1;
-  text-align: left;
-}
-
-/* Completed task style */
-.task-item.completed span {
-  text-decoration: line-through;
-  color: #888;
-}
-
-/* Delete button */
-.task-item button {
-  background: none;
-  border: none;
-  color: crimson;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.task-item button:hover {
-  color: darkred;
-}
-
-/* Responsive design */
-@media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.5rem;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-
-  .logo {
-    width: 50px;
-    height: 50px;
-  }
-
-  .task-form {
-    flex-direction: column;
-  }
-
-  .task-form input,
-  .task-form button {
-    width: 100%;
+  to {
+    transform: rotate(360deg);
   }
 }
