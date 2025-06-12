@@ -35,9 +35,10 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
       return [];
     }
 
-    return tasks.filter(task => {
-      if (!task) return false;
-      
+    // Filter out any undefined, null, or invalid tasks first
+    const validTasks = tasks.filter(task => task && typeof task === 'object');
+
+    return validTasks.filter(task => {
       const completed = isCompleted(task);
       
       switch (filter) {
@@ -56,6 +57,9 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
     if (!Array.isArray(filteredTasks)) return [];
     
     return [...filteredTasks].sort((a, b) => {
+      // Additional safety checks
+      if (!a || !b) return 0;
+      
       switch (sortBy) {
         case 'priority':
           const levels = { high: 3, medium: 2, low: 1 };
@@ -83,13 +87,19 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
   const stats = useMemo(() => {
     if (!Array.isArray(tasks)) return { total: 0, completed: 0, active: 0, overdue: 0, highPriority: 0 };
     
-    const total = tasks.length;
-    const completed = tasks.filter(t => isCompleted(t)).length;
+    // Filter out undefined/null tasks before processing - THIS IS THE KEY FIX
+    const validTasks = tasks.filter(t => t && typeof t === 'object');
+    
+    const total = validTasks.length;
+    const completed = validTasks.filter(t => isCompleted(t)).length;
     const active = total - completed;
-    const overdue = tasks.filter(t => isOverdue(t.dueDate || t.due_date) && !isCompleted(t)).length;
-    const highPriority = tasks.filter(t => 
-      (t.priority || '').toLowerCase() === 'high' && !isCompleted(t)
+    const overdue = validTasks.filter(t => 
+      t && isOverdue(t.dueDate || t.due_date) && !isCompleted(t)
     ).length;
+    const highPriority = validTasks.filter(t => 
+      t && (t.priority || '').toLowerCase() === 'high' && !isCompleted(t)
+    ).length;
+    
     return { total, completed, active, overdue, highPriority };
   }, [tasks, isOverdue, isCompleted]);
 
